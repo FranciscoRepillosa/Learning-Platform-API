@@ -4,7 +4,9 @@ config.env
 
 .txt
 
-.html
+index.html
+
+upload.html
 
 clien-sample.js
 
