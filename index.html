@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>streaming part</title>
+</head>
+<body>
+    <h1>hellooooooooooooooo</h1>
+    
+    <ul>
+        <li><a href="">Tech</a></li>
+        <li><a href="">Entertaiment</a></li>
+        <li><a href="">Sport & Healht</a></li>
+        <li><a href="">Food</a></li>
+    </ul>
+    <video controls>
+        <source src="http://localhost:3001/video1" type="video/mp4">
+    </video>
+    <audio controls>
+        <source src="http://localhost:6000/audio" type="audio/mpeg">
+    </audio>
+    <img>
+    <script> 
+        console.log("i'm alive");
+        console.log("i love you too");
+        let url;
+        let url2;    
+        fetch("http://localhost:3001/video1", {headers: {"msg" : "secret"}})
+            .then(course => course.blob)
+            .then(video => {
+                url = URL.createObjectURL(video)
+                videotag = document.getElementsByTagName("video")
+                videotag.src = url
+            });
+        
+            fetch("http://localhost:3001/img", {
+                headers: {
+                    'msg': 'secret'
+                }
+            })
+            .then(courseImg => courseImg.blob)
+            .then(img => {
+                url2 = URL.createObjectURL(img)
+                videotag = document.getElementsByTagName("video")
+                videotag.src = url2
+            });
+
+            
+
+    </script>
+    
+</body>
+</html>
