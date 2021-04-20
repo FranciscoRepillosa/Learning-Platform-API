@@ -1,7 +1,0 @@
--change to a miccroservice or other architectural pattern
--decide where to store the videos
--use sql or noslq
--improve the queries
--implement a serch engine
--meka a progresive web app, server side rendering app or client side rendering app
--
