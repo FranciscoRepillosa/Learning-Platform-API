@@ -1,6 +1,0 @@
-1.http status 206
-2.when and how many fecht call make the source tag in a video tag
-3.the atribute enctype="multipart/form-data" 
-4.the uploading process from client to server
-5.why somethimes people don't put req, res as paramather and stil work
-6.$set 
