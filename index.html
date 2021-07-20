@@ -22,18 +22,17 @@
     </audio>
     <img>
     <script> 
-        console.log("i'm alive");
-        console.log("i love you too");
         let url;
         let url2;    
-        fetch("http://localhost:3001/video1", {headers: {"msg" : "secret"}})
+        fetch("http://localhost:3001/video1", {headers: {"msg" : "piyo", "Range": "bytes-0-"}})
             .then(course => course.blob)
             .then(video => {
+                console.log(video)
                 url = URL.createObjectURL(video)
                 videotag = document.getElementsByTagName("video")
                 videotag.src = url
             });
-        
+        /*
             fetch("http://localhost:3001/img", {
                 headers: {
                     'msg': 'secret'
@@ -45,7 +44,7 @@
                 videotag = document.getElementsByTagName("video")
                 videotag.src = url2
             });
-
+*/
             
 
     </script>

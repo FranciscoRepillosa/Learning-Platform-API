@@ -1,4 +1,5 @@
 const User = require("../models/user.models")
+const Course = require("../../Courses/models/course.models");
 const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/appError");
 
@@ -62,7 +63,7 @@ exports.getFavorites = async (req, res) => {
 }
 
 exports.getUserCourses = async (req, res) => {
-  const userCourses = await User.findById(req.user._id).select("courses -_id");
+  const userCourses = await User.findById(req.user._id).select("courses");
 
   res.status(200).json({
     status: "success",
@@ -72,8 +73,11 @@ exports.getUserCourses = async (req, res) => {
 
 exports.giveCourseAccess = async (req, res) => {
   
-    const UserAccess = { courseId: req.body.courseId, role: "User" };
-    console.log("from giveCoureseAccess ", req.user._id);
+    const course = await Course.findById(req.body.courseId);
+    console.log(course);
+    const UserAccess = { Info: course, role: "User" };
+    const user2 = await User.findById(req.user._id);
+    console.log(user2);
     const user = await User.findByIdAndUpdate(req.user._id, { $push: { courses: UserAccess } }, {
       new: true,
       useFindAndModify: true

@@ -6,6 +6,11 @@ const Lesson = require("../../Lessons/models/lesson.model");
 const multer = require("multer");
 const fs = require("fs");
 
+exports.test = (req, res) => {
+  console.log(req.files.coverImage[0].path);
+  res.send(req.files.coverImage[0].filename);
+}
+
 exports.getAllCourses = catchAsync(async (req, res) => {
   const queryObj = {...req.query};
   const excludeFields = ["page", "sort", "limit", "fields"];
@@ -15,19 +20,19 @@ exports.getAllCourses = catchAsync(async (req, res) => {
   queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, macth => `$${macth}`);
   console.log(queryStr);
 
-if(req.query.searchInput) {
+  if(req.query.searchInput) {
   console.log("oh no search query");
   
-    const regex = new RegExp(req.query.searchInput, 'i')
-    const courses = await Course.find( {name: {$regex: regex} } );
+  const regex = new RegExp(req.query.searchInput, 'i')
+  const courses = await Course.find( {name: {$regex: regex} } );
     
-    return res.status(200).json({
-      status: "success",
-      results: courses.length,
-      data : {
-        courses
-      }
-    })
+  return res.status(200).json({
+    status: "success",
+    results: courses.length,
+    data : {
+      courses
+    }
+  })
 }
  
   const query = Course.find(queryObj);
@@ -44,32 +49,54 @@ if(req.query.searchInput) {
 
 });
 
+const fileFilter = (req, file, cb) => {
+ 
+  // The function should call `cb` with a boolean
+  // to indicate if the file should be accepted
+  
+  // To reject this file pass `false`, like so:
+  //cb(null, false)
+ 
+  // To accept the file pass `true`, like so:
+  if (true) {
+    console.log("from multer filter", file);
+    cb(null, true)
+  }
+  // You can always pass an error if something goes wrong:
+  //cb(new Error('I don\'t have a clue!'))
+ 
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "media/courses/coverImages");
+    if (file.fieldname === "coverImage") {
+        cb(null, "MediaStorage/courses/coverImages");
+    } else {
+      cb(null, "MediaStorage/courses/demoVideos")
+    }
   },
   filename: (req, file, cb) => {
     const exc = file.mimetype.split("/")[1];
-    console.log("userId:", req.user._id);
-    req.body.imagePath = `${req.user._id}-${file.originalname}`;
-    cb(null, `${req.user._id}-${file.originalname}`);
+    cb(null, `${Date.now()}-${file.originalname}`);
   }
 })
 
 const upload = multer({
-  storage
+  storage,
+  fileFilter
 });
 
-exports.uploadCourseImage = upload.single("courseImage");
+exports.uploadIntroFiles = upload.fields([ {name:"coverImage", maxCount: 1}, {name: "videoIntro", maxCount: 1} ]);
 
 
 exports.CreateCourse = catchAsync(async (req, res, next) => {
     
     const courseContent = {
-      name: req.body.name,
-      category: req.body.category,
-      description: req.body.description,
-      photo: req.body.imagePath,
+      name: req.body.courseName,
+      category: "tech",
+      description: req.body.courseDescription,
+      photo: req.files.coverImage[0].filename,
+      videoIntro: req.files.videoIntro[0].filename,
       author: req.user.name
   }
 

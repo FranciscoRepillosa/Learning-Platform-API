@@ -4,13 +4,13 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "media/courses/videoLessons");
+      cb(null, "MediaStorage/courses/videoLessons");
     },
     filename: (req, file, cb) => {
       const exc = file.mimetype.split("/")[1];
       console.log(file);
-      req.body.videoPath = `${req.params.courseId}-${file.originalname}`;
-      cb(null, `${req.params.courseId}-${file.originalname}`);
+      req.body.videoLesson = `${req.params.courseId}-${Date.now()}-${file.originalname}`;
+      cb(null, `${req.params.courseId}-${Date.now()}-${file.originalname}`);
     }
   })
   
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     storage
   });
   
-exports.uploadLesson = upload.single("videolesson");
+exports.uploadLesson = upload.single("videoLesson");
 
 exports.getLesson = catchAsync( async (req, res) => {
   
@@ -30,12 +30,14 @@ exports.getLesson = catchAsync( async (req, res) => {
 exports.addLesson = catchAsync(async (req, res) => {
     
     const lessonList =  await Lesson.find({ courseId: req.params.courseId });
+
+    console.log("body", req.body);
   
       const newLesson = await Lesson.create({
         courseId: req.params.courseId,
-        name: req.body.name,
-        position: lessonList.length + 1,
-        videoPath: req.body.videoPath
+        name: req.body.lessonName,
+        position: lessonList.length ? lessonList.length + 1 : 1,
+        videoLesson: req.body.videoLesson
       });
     
     res.status(200).json({

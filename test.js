@@ -97,10 +97,10 @@ app.post("/ramdon", upload.fields(MultOptions) , (req, res) => {
   
   app.get("/video1", function (req, res) {
 
-    if (req.headers.msg !== "piyo") {
-      console.log("oh oh");  
-      res.send("hola")
-    }
+//    if (req.headers.msg !== "piyo") {
+//      console.log("oh oh");  
+//      res.send("hola")
+//    }
   
     
     const getVideoData = new Promise(function (resolve, reject) {
@@ -138,12 +138,12 @@ app.post("/ramdon", upload.fields(MultOptions) , (req, res) => {
       "Content-Length": contentLength,
       "Content-Type": "video/mp4",
     };
-   
+    console.log(headers);
       res.writeHead(206, headers)
     
       fs.createReadStream(`./uploads/${video.videoPath}`, {start , end}).pipe(res);
   
-  })
+  }).catch(e => console.log(e))
    
       
   });
