@@ -17,34 +17,32 @@
     <video controls>
         <source src="http://localhost:3001/video1" type="video/mp4">
     </video>
-    <audio controls>
-        <source src="http://localhost:6000/audio" type="audio/mpeg">
-    </audio>
-    <img>
+    <img id="img">
     <script> 
         let url;
         let url2;    
         fetch("http://localhost:3001/video1", {headers: {"msg" : "piyo", "Range": "bytes-0-"}})
-            .then(course => course.blob)
+            .then(course => course.blob())
             .then(video => {
                 console.log(video)
                 url = URL.createObjectURL(video)
                 videotag = document.getElementsByTagName("video")
                 videotag.src = url
             });
-        /*
-            fetch("http://localhost:3001/img", {
+        
+            fetch("http://localhost:4321/media/userimage", {
                 headers: {
                     'msg': 'secret'
                 }
             })
-            .then(courseImg => courseImg.blob)
+            .then(courseImg => courseImg.blob())
             .then(img => {
+                console.log(img)
                 url2 = URL.createObjectURL(img)
-                videotag = document.getElementsByTagName("video")
+                videotag = document.getElementById("img")
                 videotag.src = url2
             });
-*/
+
             
 
     </script>

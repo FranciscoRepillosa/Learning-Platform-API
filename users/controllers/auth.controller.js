@@ -84,11 +84,14 @@ exports.restricTo = (role) => {
     return (req, res, next) => {     
         let isAuthorized;
         req.user.courses.forEach(course => {
-                    if (course.courseId === req.params.courseId &&  course.role === role) {
+                        console.log("accepted role  ", course.role === role[0] || course.role === role[1]);
+                        console.log("is the correct course  ", course.courseId === req.params.courseId);
+                    if (course.courseId === req.params.courseId && course.role === role[0] || course.role === role[1]  ) {
                         isAuthorized = true;
                     }
                });
      if(isAuthorized) {
+        console.log("pass");
         return next()
     }
       next(new AppError("you don't have permission to perform this accion", 403));

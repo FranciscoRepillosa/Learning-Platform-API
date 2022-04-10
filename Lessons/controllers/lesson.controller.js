@@ -37,7 +37,7 @@ exports.addLesson = catchAsync(async (req, res) => {
         courseId: req.params.courseId,
         name: req.body.lessonName,
         position: lessonList.length ? lessonList.length + 1 : 1,
-        videoLesson: req.body.videoLesson
+        videoPath: req.body.videoLesson
       });
     
     res.status(200).json({

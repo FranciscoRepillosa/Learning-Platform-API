@@ -92,7 +92,7 @@ app.post("/ramdon", upload.fields(MultOptions) , (req, res) => {
 
   app.get("/img", (req, res) => {
     console.log(req.headers);
-    res.sendFile(__dirname + "/187c4255-30d9-48d6-ba2d-71568fc3bff3.jpg");
+    res.sendFile(__dirname + "/user.svg");
   } )
   
   app.get("/video1", function (req, res) {

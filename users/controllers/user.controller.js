@@ -11,6 +11,17 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 }
 
+exports.getUserById = catchAsync(async (req, res) => {
+  
+  const user = await User.findById(req.user._id);
+
+  res.status(200).json({
+    status: "success",
+    data: user
+  })
+
+});
+
 exports.getAllUsers = catchAsync(async (req, res) => {
     
     const users = await User.find();
@@ -75,7 +86,12 @@ exports.giveCourseAccess = async (req, res) => {
   
     const course = await Course.findById(req.body.courseId);
     console.log(course);
-    const UserAccess = { Info: course, role: "User" };
+    const UserAccess = { 
+        name: course.name,
+        courseId: course._id,
+        photo: course.photo,
+        role: "User" 
+      };
     const user2 = await User.findById(req.user._id);
     console.log(user2);
     const user = await User.findByIdAndUpdate(req.user._id, { $push: { courses: UserAccess } }, {

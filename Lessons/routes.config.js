@@ -4,7 +4,7 @@ const authController = require("../users/controllers/auth.controller");
 const lessonController = require("./controllers/lesson.controller");
 
 router.post("/:courseId", authController.protect,
-                         authController.restricTo('instructor'),
+                         authController.restricTo(['instructor']),
                          lessonController.uploadLesson,
                          lessonController.addLesson);
 

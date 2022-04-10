@@ -42,8 +42,7 @@ const UserSchema = new mongoose.Schema({
     courses: [{
         courseId: String,
         name: String,
-        photoUrl: String,
-        courseUrl: String,
+        photo: String,
         role: {
             type: String,
             enum: ["user", "instructor"]

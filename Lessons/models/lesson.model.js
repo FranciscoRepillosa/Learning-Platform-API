@@ -4,7 +4,10 @@ const mongoose = require("mongoose");
 
 const LessonSchema = new mongoose.Schema({
     courseId: String,
-    name: String,
+    name: {
+        type: String,
+        unique: true
+    },
     position: Number,
     videoPath: String
 
