@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" })
+dotenv.config({ path: "./settings.env"})
 
 process.on("uncaughtException", err => {
   console.log(err);
@@ -25,7 +25,10 @@ db.once('open', function() {
   console.log(" we're connected!! ");
 });
 
+console.log(process.env);
+
 const port = process.env.PORT || 3000 ;
+
 
  const server = app.listen(port, function () {
     console.log(`listen on port ${port}`)

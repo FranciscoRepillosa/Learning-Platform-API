@@ -84,7 +84,11 @@ exports.getUserCourses = async (req, res) => {
 
 exports.giveCourseAccess = async (req, res) => {
   
+    console.log('body giveaccess ',req.body);
+
     const course = await Course.findById(req.body.courseId);
+
+
     console.log(course);
     const UserAccess = { 
         name: course.name,
@@ -93,12 +97,12 @@ exports.giveCourseAccess = async (req, res) => {
         role: "User" 
       };
     const user2 = await User.findById(req.user._id);
-    console.log(user2);
+    console.log('1----------',user2);
     const user = await User.findByIdAndUpdate(req.user._id, { $push: { courses: UserAccess } }, {
       new: true,
       useFindAndModify: true
     } );
-
+    console.log('2----------------',user);
     res.status(200).json({
       status: "success",
       user

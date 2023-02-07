@@ -3,6 +3,9 @@ const { setFlagsFromString } = require("v8");
 const express = require("express");
 const app = express()
 const multer = require("multer");
+var cookieParser = require('cookie-parser')
+
+app.use(cookieParser())
 
 const port  = 3001;
 
@@ -76,6 +79,9 @@ const storage = multer.diskStorage({
   app.use(cors());
 
   app.get("/", function (req, res) {
+
+      console.log(req.cookies)
+
       res.sendFile(__dirname + "/index.html");
     });
 

@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 const AppError = require("../../utils/appError");
 const { promisify }= require("util");
 const sendEmail = require("../../utils/email");
-const crypto = require("crypto");
-
-
+const crypto = require("crypto"); 
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -15,15 +13,25 @@ const signToken = id => {
 }
 
 exports.signup = catchAsync( async (req, res, next) => {
-    console.log("body ",req.body);
-
+    
     const newUser = await User.create(req.body);
-    console.log("pass");
-    console.log("newUSer ", newUser);
 
+    const token = signToken(newUser._id);
 
-    const token = signToken(newUser._id)
+    const timeToExpire = Date.now() + process.env.JWT_EXPIRES_IN;
 
+    console.log(typeof timeToExpire);
+
+    const cookieOptions = {
+        httpOnly: true
+    };
+
+    if(process.env.NODE_ENV === "production") cookieOptions.secure = true;
+
+    res.cookie("jwt", token, cookieOptions);
+
+    console.log(cookieOptions);
+    
     res.status(201).json({
         status: "success",
         token,
@@ -48,24 +56,44 @@ exports.login = catchAsync(async (req, res, next) => {
     }
 
     const token = signToken(user._id);
+
+    const cookieOptions = {
+        //expires: new Date(Date.now() + process.env.JWT_COOKIES_EXPIRES_IN * 24 * 60 * 60 * 1000),
+        httpOnly: true
+    };
+
+    if(process.env.NODE_ENV === "production") cookieOptions.secure = true;
+
+    res.cookie("jwt", token, cookieOptions);
+    res.cookie("love yourself", 'i love u');
+
+    console.log("cookie  ", res.cookie)
     
-    res.status(200).json({
-        status: 'success',
+    res.status(201).json({
+        status: "success",
         token
     })
 }); 
 
 exports.protect = catchAsync(async (req, res, next) => {
 
-   if(!req.headers.authorization || !req.headers.authorization.startsWith('Bearer')) {
-        next( new AppError('You are not logged in! Please log in to get access.', 401 ))
+   console.log(req.originalUrl);
+
+   console.log('where are my cookies ',req.body)
+   
+
+   for (const key in req.cookies) {
+    console.log(key);
    }
-    
-   let token = req.headers.authorization.split(' ')[1];
-    
+
+   let token = req.cookies.jwt;
+
+        
    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
    const CurrentUser = await User.findById(decoded.id);
+
+   console.log(CurrentUser);
 
    if(!CurrentUser) {
        return next(new AppError('The user belonging to this token does no longer exist', 401 ))
@@ -75,6 +103,8 @@ exports.protect = catchAsync(async (req, res, next) => {
        return next(new AppError('User recently changed password, please log in again', 401));
    }
 
+   console.log('pass protect middleware')
+
    req.user = CurrentUser;
    next();
 });
@@ -83,18 +113,34 @@ exports.protect = catchAsync(async (req, res, next) => {
 exports.restricTo = (role) => {
     return (req, res, next) => {     
         let isAuthorized;
-        req.user.courses.forEach(course => {
-                        console.log("accepted role  ", course.role === role[0] || course.role === role[1]);
-                        console.log("is the correct course  ", course.courseId === req.params.courseId);
-                    if (course.courseId === req.params.courseId && course.role === role[0] || course.role === role[1]  ) {
-                        isAuthorized = true;
-                    }
-               });
-     if(isAuthorized) {
-        console.log("pass");
+        console.log('user courses', req.user)
+
+        const isLogin = req.user;
+
+        const isAdemoVideo = req.params.mediaType === 'demoVideos';
+
+        //if(isLogin) {
+            req.user.courses.forEach(course => {
+                console.log(course);
+                console.log(req.params.courseId);
+                console.log(req.user);
+                console.log("accepted role  ", course.role === role[0] || course.role === role[1]);
+                console.log("is the correct course  ", course.courseId === req.params.mediaSourceId);
+                
+                const userBroughtTheCourse = course.courseId === req.params.mediaSourceId || course.courseId === req.params.courseId;
+                const hasTheCorrectRole = course.role === role[0] || course.role === role[1]; 
+
+            if (userBroughtTheCourse && hasTheCorrectRole) {
+                isAuthorized = true;
+            }
+       });
+        
+
+     if(isAuthorized || isAdemoVideo) {
+        console.log(req.user);
         return next()
     }
-      next(new AppError("you don't have permission to perform this accion", 403));
+      next(new AppError("you don't have permission to perform this accion", 202));
     }
 }
   

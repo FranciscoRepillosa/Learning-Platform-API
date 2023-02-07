@@ -1,0 +1,36 @@
+------------- TODOS -------------
+
+            21/09/22
+
+[x] make payment functionality work
+
+[x] once a user has brought a course give him access to the lesson course
+   otw let him judt wacth the intro vid 
+
+            15/10/22
+
+[x] make the unlogged users be able to see intro videos 
+(so far i think i would diferent routes just to treaat free resources like intro videos)
+
+[x] when the user clicks in 'buy course' ask if he is login 
+(if he's not redirect to login screen otherwise keeps the flow)
+   
+   - make a route to check if a user is login if he's not create a 
+   cookie to save the course to brought, then redurect 
+   to login page and when login check the cookie and redirect to
+   buy the course
+
+
+
+            20/10/22
+
+[] send the error message with each request
+[] make the ui more responsive\
+[] show message if the user can wacht a video
+
+---- SIDE NOTES -----
+I ESPEND COUPLES OF DAYS TRIYING TO ACCESS TO AN AUNTHENTICATED ROUTE,
+THE PROBLEM WAS THE FOLLOWING: IN THE BACKEND SIDE, ONE OF THE CORS POLICY
+RULES WAS 'CREDENTIALS: TRUE' (WHICH MEANS THE GIVEN REQUESTS WILL HAVE
+CREDENTIALS HEADERS ) BUT IN CLIENT SIDE I WAS MAKING REQUEST WITHOUT
+ESPECIFIES THE 'WIHTCREDENTIALS: TRUE'

@@ -3,8 +3,13 @@ const router = express.Router();
 const authController = require("../users/controllers/auth.controller");
 const mediaController = require("../Media/controllers/media.controller");
 
-router.get("/:mediaSource/:mediaType/:mediaId", authController.protect,
-                                                authController.restricTo(['instructor', "User"]),
+router.get("/:mediaSource/:mediaSourceId/:mediaType/:mediaId",
+                                                authController.protect,
+                                                authController.restricTo(['User','instructor']),
+                                                mediaController.getMedia);
+
+
+router.get("/free/:mediaSource/:mediaSourceId/:mediaType/:mediaId",
                                                 mediaController.getMedia);
 
 router.get("/userimage", authController.protect,

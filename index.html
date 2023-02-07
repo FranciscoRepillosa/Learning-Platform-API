@@ -15,33 +15,67 @@
         <li><a href="">Food</a></li>
     </ul>
     <video controls>
-        <source src="http://localhost:3001/video1" type="video/mp4">
+        <!-- <source src="http://localhost:3001/video1" type="video/mp4"> -->
     </video>
     <img id="img">
     <script> 
         let url;
         let url2;    
-        fetch("http://localhost:3001/video1", {headers: {"msg" : "piyo", "Range": "bytes-0-"}})
-            .then(course => course.blob())
-            .then(video => {
-                console.log(video)
-                url = URL.createObjectURL(video)
-                videotag = document.getElementsByTagName("video")
-                videotag.src = url
-            });
+        // fetch("http://localhost:3001/video1", {headers: {"msg" : "piyo", "Range": "bytes-0-"}})
+        //     .then(course => course.blob())
+        //     .then(video => {
+        //         console.log(video)
+        //         url = URL.createObjectURL(video)
+        //         videotag = document.getElementsByTagName("video")
+        //         videotag.src = url
+        //     });
         
-            fetch("http://localhost:4321/media/userimage", {
-                headers: {
-                    'msg': 'secret'
-                }
-            })
-            .then(courseImg => courseImg.blob())
-            .then(img => {
-                console.log(img)
-                url2 = URL.createObjectURL(img)
-                videotag = document.getElementById("img")
-                videotag.src = url2
-            });
+        //     fetch("http://localhost:4321/media/userimage", {
+        //         headers: {
+        //             'msg': 'secret'
+        //         }
+        //     })
+        //     .then(courseImg => courseImg.blob())
+        //     .then(img => {
+        //         console.log(img)
+        //         url2 = URL.createObjectURL(img)
+        //         videotag = document.getElementById("img")
+        //         videotag.src = url2
+        //     });
+
+            fetch('http://localhost:3001/video1')
+  // Retrieve its body as ReadableStream
+  .then((response) => {
+    const reader = response.body.getReader();
+    return new ReadableStream({
+      start(controller) {
+        return pump();
+        function pump() {
+          return reader.read().then(({ done, value }) => {
+            // When no more data needs to be consumed, close the stream
+            if (done) {
+              controller.close();
+              return;
+            }
+            // Enqueue the next data chunk into our target stream
+            controller.enqueue(value);
+            return pump();
+          });
+        }
+      }
+    })
+  })
+  // Create a new response out of the stream
+  .then((stream) => new Response(stream))
+  // Create an object URL for the response
+  .then((response) => response.blob())
+  .then((blob) => { console.log(blob); URL.createObjectURL(blob)})
+  // Update image
+  .then((url) => {
+    videotag = document.getElementById("img")
+    console.log(videotag.src = url)
+  })
+  .catch((err) => console.error(err));
 
             
 
