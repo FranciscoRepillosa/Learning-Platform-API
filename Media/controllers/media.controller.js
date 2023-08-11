@@ -64,7 +64,8 @@ exports.getMedia = catchAsync( async (req, res) => {
     getVideoData.then(video => {
     
       const range = req.headers.range
-      console.log(range);
+      console.log('fet file: ', video);
+      console.log('headers ',req.headers);
        
       // Parse Range
       // Example: "bytes=32324-"

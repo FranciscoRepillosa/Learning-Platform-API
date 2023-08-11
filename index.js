@@ -2,13 +2,24 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const formidableMiddleware = require('express-formidable');
+//var cookies = require("cookie-parser");
+var cookieParser = require('cookie-parser')
+
+
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./Courses/controllers/errorHandlers");
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
-app.use(cors());
+
+
 app.use(express.json());
+app.use(cookieParser())
+//app.use(cookies());
 //app.use(formidableMiddleware());
 
 const courseRoutes = require("./Courses/routes.config");

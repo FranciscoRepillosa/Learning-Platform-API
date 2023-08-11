@@ -18,7 +18,7 @@ router.post('/favorite', authController.protect, userController.addToFavorites);
 router.get('/favorite', authController.protect, userController.getFavorites);
 
 router.get("/courses", authController.protect, userController.getUserCourses);
-router.patch('/giveCourseAccess', authController.protect, userController.giveCourseAccess);
+router.post('/giveCourseAccess', authController.protect, userController.giveCourseAccess);
 
 router
     .route("/")

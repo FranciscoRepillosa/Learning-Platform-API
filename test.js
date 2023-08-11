@@ -3,6 +3,10 @@ const { setFlagsFromString } = require("v8");
 const express = require("express");
 const app = express()
 const multer = require("multer");
+var cookieParser = require('cookie-parser')
+const axios = require('axios')
+
+app.use(cookieParser())
 
 const port  = 3001;
 
@@ -76,6 +80,9 @@ const storage = multer.diskStorage({
   app.use(cors());
 
   app.get("/", function (req, res) {
+
+      console.log(req.cookies)
+
       res.sendFile(__dirname + "/index.html");
     });
 
@@ -152,6 +159,17 @@ app.post("/ramdon", upload.fields(MultOptions) , (req, res) => {
   app.get("/upload", function (req, res) {
      res.sendFile(__dirname + "/upload.html");
   });
+
+  app.get('/song', (req,res) => {
+    axios.get('https://api.deezer.com/track/3135556')
+      .then(function (response) {
+      // handle success
+      res.status(200).json({
+        status: '200',
+        data: response.data.preview
+      })
+    })
+  })
   
   /*
   app.post("/upload", upload.single("video"), function (req, res) {
