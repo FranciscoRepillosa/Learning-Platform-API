@@ -6,9 +6,39 @@ const formidableMiddleware = require('express-formidable');
 var cookieParser = require('cookie-parser')
 
 
-
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./Courses/controllers/errorHandlers");
+
+app.set('trust proxy', true)
+
+
+app.use((req, res, next) => {
+        console.log(req.headers['x-real-ip'] || req.connection.remoteAddress )
+        next()
+})
+
+app.use(cors({
+  origin: ['https://courseapp.repillosa.com','https://hoppscotch.io', 'http://localhost:3000'],
+  credentials: true
+}));
+
+
+
+/*
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://courseapp.repillosa.com');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+*/
+
+app.use(express.json());
+app.use(cookieParser())
+//app.use(cookies());
+//app.use(formidableMiddleware());
+
 
 app.use(cors({
   origin: 'http://localhost:3000',
