@@ -61,41 +61,48 @@ exports.getMedia = catchAsync( async (req, res) => {
 
 */
    
-    getVideoData.then(video => {
+    if(req.params.mediaType === "coverImages") {
+      let imgPath = path.join(__dirname, '..', '../MediaStorage/courses/coverImages',req.params.mediaId )
+      res.sendFile(imgPath)
+    }
+    else {
+      getVideoData.then(video => {
     
-      const range = req.headers.range
-      console.log('fet file: ', video);
-      console.log('headers ',req.headers);
+        const range = req.headers.range
+        console.log('fet file: ', video);
+        console.log('headers ',req.headers);
+         
+        // Parse Range
+        // Example: "bytes=32324-"
+        const CHUNK_SIZE = 10 ** 6; // 1MB
+        const start = Number(range.replace(/\D/g, ""));
+        const end = Math.min(start + CHUNK_SIZE, video.fileSize - 1);
+        //let [start, end]  = range.replace(/bytes=/, "").split("-");
+        //const end = Math.min(start + CHUNK_SIZE, video.fileSize - 1);
+        //start = parseInt(start, 10);
+        //end = end ? parseInt(end, 10) : video.fileSize-1;
+        console.log(`start:${start}, end${end} size${video.fileSize}`  );
        
-      // Parse Range
-      // Example: "bytes=32324-"
-      const CHUNK_SIZE = 10 ** 6; // 1MB
-      const start = Number(range.replace(/\D/g, ""));
-      const end = Math.min(start + CHUNK_SIZE, video.fileSize - 1);
-      //let [start, end]  = range.replace(/bytes=/, "").split("-");
-      //const end = Math.min(start + CHUNK_SIZE, video.fileSize - 1);
-      //start = parseInt(start, 10);
-      //end = end ? parseInt(end, 10) : video.fileSize-1;
-      console.log(`start:${start}, end${end} size${video.fileSize}`  );
-     
-      // Create headers
-      const contentLength = end - start + 1;
-      const headers = {
-        "Content-Range": `bytes ${start}-${end}/${video.fileSize}`,
-        "Accept-Ranges": "bytes",
-        "Content-Length": contentLength,
-        "Content-Type": "video/mp4",
-      };
-     console.log(headers);
-        res.writeHead(206, headers)
-
-        console.log(file)
+        // Create headers
+        const contentLength = end - start + 1;
+        const headers = {
+          "Content-Range": `bytes ${start}-${end}/${video.fileSize}`,
+          "Accept-Ranges": "bytes",
+          "Content-Length": contentLength,
+          "Content-Type": "video/mp4",
+        };
+       console.log(headers);
+          res.writeHead(206, headers)
+  
+          console.log(file)
+        
+          fs.createReadStream(file, {start , end} ).pipe(res);
       
-        fs.createReadStream(file, {start , end} ).pipe(res);
-    
-    }).catch(e => console.log(e));
+      }).catch(e => console.log(e));
+    }
 
-    
+   // C:\Users\Administrador\Documents\Franxisco\apps\Learning-Platform-API\MediaStorage\courses\coverImages\1695220159744-5D322DC4-1E29-4883-B9D2-DAB9552A0955.jpeg
+   // C:\Users\Administrador\Documents\Franxisco\apps\Learning-Platform-API\MediaStorage\course\coverImages\1695220159744-5D322DC4-1E29-4883-B9D2-DAB9552A0955.jpeg
 });  
 
 

@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/styles/home.css")
+        link(rel="stylesheet", href="/styles/course/show.css")
+        link(rel="stylesheet", href="/styles/lesson/new.css")
+        title Add Lesson
+    body 
+        include ../includes/searchbar.pug
+        .courseSpecs
+            .detailContainer
+                -videoUrl= `/media/free/courses/${course._id}/demoVideos/${course.videoIntro}`
+                video#videoPlayer.video-sample(src=videoUrl, controls) 
+                input.removeDefaultInput(type="text", name="courseName", value=course.name)
+                textarea(value=course.description)= course.description
+            
+                form#formElememt(courseId=course._id, method="post")
+                    input#lessonName.removeDefaultInput(type="text", placeholder="Lesson Name")
+                    input#videoLesson(type="file", name="videoLesson")
+                    button#submit(type="submit") Add Lesson
+            .detailContainer
+                .lesson.intro.playing
+                    img.play-btn-off(src='/play-button-on.svg')
+                    p.play-list-text(videoUrl=course.videoIntro, courseId=course._id, introVid='true') Intro
+                each lesson in lessons
+                    .lesson
+                        img.play-btn-off(src='/play-button.svg')
+                        p.play-list-text(videoUrl=lesson.videoPath, courseId=lesson.courseId)= lesson.position+" "+lesson.name
+
+        
+    script(src='/scripts/lesson/new.js')
+    script(src='/scripts/course/show.js')
+

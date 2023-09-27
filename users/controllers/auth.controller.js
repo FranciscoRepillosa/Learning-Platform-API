@@ -20,8 +20,6 @@ exports.signup = catchAsync( async (req, res, next) => {
 
     const timeToExpire = Date.now() + process.env.JWT_EXPIRES_IN;
 
-    console.log(typeof timeToExpire);
-
     const cookieOptions = {
         httpOnly: true
     };
@@ -30,7 +28,10 @@ exports.signup = catchAsync( async (req, res, next) => {
 
     res.cookie("jwt", token, cookieOptions);
 
-    console.log(cookieOptions);
+    req.session.user = {
+        username: newUser._id,
+        // Add any other relevant user data you want to store in the session
+    };
     
     res.status(201).json({
         status: "success",
@@ -56,18 +57,18 @@ exports.login = catchAsync(async (req, res, next) => {
     }
 
     const token = signToken(user._id);
+   
+    req.session.user = token
 
-    const cookieOptions = {
-        //expires: new Date(Date.now() + process.env.JWT_COOKIES_EXPIRES_IN * 24 * 60 * 60 * 1000),
-        httpOnly: true
-    };
 
-    if(process.env.NODE_ENV === "production") cookieOptions.secure = true;
+    // if(process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
-    res.cookie("jwt", token, cookieOptions);
-    res.cookie("love yourself", 'i love u');
+    // res.cookie("jwt", token, cookieOptions);
+    // res.cookie("love yourself", 'i love u');
 
-    console.log("cookie  ", res.cookie)
+    //console.log("cookie  ", res.cookie)
+
+    console.log(req.session);
     
     res.status(201).json({
         status: "success",
@@ -77,18 +78,12 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
 
-   console.log(req.originalUrl);
+    console.log('token  ', req.session);
 
-   console.log('where are my cookies ',req.body)
-   
-
-   for (const key in req.cookies) {
-    console.log(key);
-   }
-
-   let token = req.cookies.jwt;
-
-        
+    let token = req.session.user;
+//    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+//         token = req.headers.authorization.split(' ')[1];
+//    }     
    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
    const CurrentUser = await User.findById(decoded.id);
@@ -119,7 +114,6 @@ exports.restricTo = (role) => {
 
         const isAdemoVideo = req.params.mediaType === 'demoVideos';
 
-        //if(isLogin) {
             req.user.courses.forEach(course => {
                 console.log(course);
                 console.log(req.params.courseId);
@@ -128,19 +122,20 @@ exports.restricTo = (role) => {
                 console.log("is the correct course  ", course.courseId === req.params.mediaSourceId);
                 
                 const userBroughtTheCourse = course.courseId === req.params.mediaSourceId || course.courseId === req.params.courseId;
-                const hasTheCorrectRole = course.role === role[0] || course.role === role[1]; 
+                const hasTheCorrectRole = role.includes(course.role)
 
-            if (userBroughtTheCourse && hasTheCorrectRole) {
-                isAuthorized = true;
-            }
-       });
+                if (userBroughtTheCourse && hasTheCorrectRole) {
+                    isAuthorized = true;
+                }
+            });
         
 
-     if(isAuthorized || isAdemoVideo) {
-        console.log(req.user);
-        return next()
-    }
-      next(new AppError("you don't have permission to perform this accion", 202));
+            if(isAuthorized || isAdemoVideo) {
+                console.log(req.user);
+                return next()
+            }
+      
+            next(new AppError("you don't have permission to perform this accion", 202));
     }
 }
   

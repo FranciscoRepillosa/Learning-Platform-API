@@ -1,0 +1,21 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title Simple Login Form Example
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:400,700')
+  link(rel='stylesheet' href='/styles/user/login.css')
+// partial:index.partial.html
+.login-form
+  form
+    h1 Login
+    .content
+      .input-field
+        input#email(type='email' placeholder='Email' autocomplete='nope')
+      .input-field
+        input#pass(type='password' placeholder='Password' autocomplete='new-password')
+      a.link(href='#') Forgot Your Password?
+    .action
+      button Register
+      button#submit Sign in
+// partial
+script(src='/scripts/user/login.js')

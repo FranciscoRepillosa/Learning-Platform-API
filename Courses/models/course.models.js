@@ -13,14 +13,15 @@ const CourseSchema = new mongoose.Schema({
     description: String,
     photo: String,
     videoIntro: String,
-    price: Number,
+    priceInCents: Number,
    /*
     lessons: [{
         videoPath: String,
         name: String
     }],
     */
-    author: String
+    author: String,
+    authorId: String
 
 });
 

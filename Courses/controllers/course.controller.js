@@ -11,6 +11,20 @@ exports.test = (req, res) => {
   res.send(req.files.coverImage[0].filename);
 }
 
+exports.renderCourse = catchAsync(async (req, res) => {
+
+  const {courseId} = req.params
+
+  const course = await Course.findById(courseId)
+
+  const lessons = await Lesson.find({"courseId": courseId})
+
+  let user = req.user
+
+  res.render('course/show', {course, lessons, user})
+
+})
+
 exports.getAllCourses = catchAsync(async (req, res) => {
   const queryObj = {...req.query};
   const excludeFields = ["page", "sort", "limit", "fields"];
@@ -97,7 +111,9 @@ exports.CreateCourse = catchAsync(async (req, res, next) => {
       description: req.body.courseDescription,
       photo: req.files.coverImage[0].filename,
       videoIntro: req.files.videoIntro[0].filename,
-      author: req.user.name
+      priceInCents: req.body.price*100,
+      author: req.user.name,
+      authorId: req.user._id
   }
 
      const newCourse = await Course.create(courseContent);

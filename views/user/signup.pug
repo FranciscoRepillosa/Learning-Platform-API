@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel='stylesheet' href='/styles/user/login.css')
+        title Document
+    body
+    .login-form
+        form
+            h1 Login
+            .content
+                .input-field
+                    input#name(type='text' placeholder='name' autocomplete='nope')
+                .input-field
+                    input#email(type='email' placeholder='Email' autocomplete='nope')
+                .input-field
+                    input#pass(type='password' placeholder='Password' autocomplete='new-password')
+                .input-field
+                    input#confirmPassword(type='password' placeholder='confirmPassword' autocomplete='new-password')
+                a.link(href='#') Forgot Your Password?
+            .action
+                button Login
+                button#submit Sign Up
+    script(src='/scripts/user/signup.js')

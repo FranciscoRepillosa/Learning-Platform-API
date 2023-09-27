@@ -1,0 +1,16 @@
+.salesHeader {
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+    border-collapse: collapse;
+    margin-top: 50px;
+}
+
+.salesHeader td, #customers th {
+border: 1px solid #ddd;
+padding: 8px;
+}
+
+.salesHeader tr:nth-child(even){background-color: #f2f2f2;}
+
+.salesHeader tr:hover {background-color: #ddd;}

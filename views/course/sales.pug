@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/styles/home.css")
+        link(rel="stylesheet", href="/styles/course/show.css")
+        link(rel="stylesheet", href="/styles/lesson/new.css")
+        title Add Lesson
+    body 
+        include ../includes/searchbar.pug
+        table.salesHeader
+            tr
+                th Total
+            tr
+                th $
+                th # Sales
+                th # Courses
+            tr
+                td 100$
+                td 10
+                td 1
+        
+        table.coursesSold
+            tr
+                th Courses
+                th # Sales
+                th $
+            tr
+                td Yoga For Dogs
+                td 10
+                td 100$
+
+
+            
+
+        
+    script(src='/scripts/lesson/new.js')
+    script(src='/scripts/course/show.js')
+

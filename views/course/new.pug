@@ -1,0 +1,53 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/styles/course/new.css")
+        link(rel='stylesheet' href='/styles/user/login.css')
+
+    body
+
+    //- form(enctype="multipart/form-data")
+    //-     .basic-card new-lesson-form
+    //-         input#CourseName(type="text", name="courseName", placeholder="Course Name")
+    //-         //- input#CourseDescription(type="text", name="courseDescription", placeholder="course Description")
+    //-         input#CoverImage(type="file", name="coverImage", placeholder="cover Image")
+    //-         input#VideoIntro(type="file", name="videoIntro", placeholder="video Intro")
+    //-         input#price(type="number", name="price", placeholder="price")
+    //-         input#submit(type="submit", name="courseName", placeholder="Create Course")
+
+    .login-form(style="width: 50%")
+        form(enctype="multipart/form-data")
+            h1 Create Course
+            .content
+                .input-field
+                    input#CourseName(type="text", name="courseName", placeholder="Course Name")
+                .input-field(style='text-align: initial;')
+                    label(for="courseDescription") Course Description
+                    textarea#CourseDescription(name="courseDescription", placeholder="course Description")
+                .input-field(style='text-align: initial;')
+                    label(for="coverImage") Cover Image
+                    input#CoverImage(type="file", name="coverImage", placeholder="cover Image")
+                .input-field(style='text-align: initial;')
+                    label(for="videoIntro") Video Intro
+                    input#VideoIntro(type="file", name="videoIntro", placeholder="cover Image")
+                .input-field
+                    input#price(type="number", name="price", placeholder="price")
+            .action
+                button#submit Save
+    script(src='/scripts/course/new.js')
+
+
+    //- <form enctype="multipart/form-data">
+    //-             <div className="basic-card new-lesson-form" >
+    //-                 <FormInput type={"text"} name={"courseName"} placeholder={"Course Name"}  onInputChange={handleInputChange} />
+    //-                 <FormInput type={"text"} name={"courseDescription"} placeholder={"Course Description"}  onInputChange={handleInputChange} />
+    //-                 <FormInput type={"file"} name={"coverImage"} placeholder={"Cover Image"}  onInputChange={handleInputChange} />
+    //-                 <FormInput type={"file"} name={"videoIntro"} placeholder={"Video Intro"}  onInputChange={handleInputChange} />
+    //-                 <FormInput type={"submit"} submitHandler={handleSubmit} placeholder={"Create Course"} />
+                    
+    //-             </div>
+    //-         </form>

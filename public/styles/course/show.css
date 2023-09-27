@@ -1,0 +1,103 @@
+.videoDescription {
+    width: 50%;
+    height: 190px;
+    display: flex;
+    margin-left: 25%;
+    margin-top: 20px;
+}
+
+.videoDescription video {
+    width: 50%;
+}
+
+.video-sample {
+    width: 100%;
+    /* height: 165px; */
+    display: block;
+}
+
+.learn-to-section {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(211 218 248 / 13%);
+    width: 50%;
+    align-items: center;
+}
+
+.lessons {
+    width: 50%;
+    margin-left: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+
+.lesson {
+    display: flex;
+    height: 30px;
+    background-color: #dbdbdb87;
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.edit-name-des {
+    margin-bottom: 5px;
+    height: 45px;
+    width: 45px;
+    margin-left: auto;
+}
+
+.play-list-item {
+    height: 35px;
+    display: flex;
+    background-color: rgb(241 241 241);
+    /* border: 1px solid rgb(241 241 241); */
+    border-radius: 5px;
+    padding-left: 10px;
+    align-items: center;
+}
+
+.play-list-text {
+    max-width: 80%;
+    width: 80%;
+    margin-left: 5%;
+}
+
+.play-btn-off {
+    height: 50%;
+    width: 5%;
+}
+
+.play-list-edit {
+    height: 70%;
+    margin-top: auto;
+    margin-bottom: auto ;
+    margin-left: 15%;
+}
+
+.playing {
+    background-image: linear-gradient(45deg, black, transparent);
+    color: white;
+}
+
+#buy {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0 56px;
+    height: 35px;
+    /* line-height: 45px; */
+    border-radius: 7px;
+    background-color: #0070f3;
+    color: white;
+    font-weight: 400;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+    transition: background 0.2s ease,color 0.2s ease,box-shadow 0.2s ease;
+    margin-top: 10px;
+}

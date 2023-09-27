@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/styles/home.css")
+        link(rel="stylesheet", href="/styles/course/show.css")
+        link(rel="stylesheet", href="/styles/lesson/new.css")
+        link(rel="stylesheet", href="/styles/sales/show.css")
+        title Add Lesson
+    body 
+        include ../includes/searchbar.pug
+        table.salesHeader
+            tr
+                th(colspan="3") Total
+            tr
+                th $
+                th # Sales
+                th # Courses
+            tr
+                td= courseSales.totalSalesInUsd/100
+                td= courseSales.totalSalesNumber
+                td= courseSales.courseNumber
+            tr
+                th Course
+                th # Sales
+                th $
+            tr
+                each val, key in courseSales.soldCourses
+                    td= courseSales.soldCourses[key].name
+                    td= courseSales.soldCourses[key].salesNumber
+                    td= courseSales.soldCourses[key].salesInUsd/100+'$'
+            
+
+
+
+        
+    script(src='/scripts/lesson/new.js')
+    script(src='/scripts/course/show.js')
+

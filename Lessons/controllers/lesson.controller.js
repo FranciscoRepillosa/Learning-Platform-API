@@ -1,4 +1,5 @@
 const Lesson = require("../models/lesson.model");
+const Course = require("../../Courses/models/course.models")
 const catchAsync = require("../../utils/catchAsync");
 const multer = require("multer");
 
@@ -19,6 +20,18 @@ const storage = multer.diskStorage({
   });
   
 exports.uploadLesson = upload.single("videoLesson");
+
+exports.renderNewLessonPage = catchAsync( async (req, res) => {
+
+  const {courseId} = req.params
+
+  const course = await Course.findById(courseId)
+
+  const lessons = await Lesson.find({"courseId": courseId})
+
+  res.render('lesson/new', {  course,lessons })
+
+})
 
 exports.getLesson = catchAsync( async (req, res) => {
   

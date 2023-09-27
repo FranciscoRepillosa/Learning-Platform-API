@@ -3,6 +3,9 @@ const Course = require("../../Courses/models/course.models");
 const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/appError");
 
+
+
+
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach(el => {
@@ -107,4 +110,11 @@ exports.giveCourseAccess = async (req, res) => {
       status: "success",
       user
     })
+}
+
+exports.renderMyCoursePage = async (req, res) => {
+    const {courses} = await User.findById(req.user._id)
+
+    res.render("user/myCourses", {courses})
+  
 }

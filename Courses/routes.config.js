@@ -3,7 +3,13 @@ const authController = require("../users/controllers/auth.controller");
 const User = require("../users/models/user.models");
 console.log(courseController.uploadCourseImage);
 
+const render = require('../utils/render')
+
 exports.routesConfig = function (app) {
+
+    app.get("/courses/new", authController.protect, render('course/new') );
+
+    app.get('/courses/:courseId/show', courseController.renderCourse)
     
     app.get("/courses", courseController.getAllCourses);
 

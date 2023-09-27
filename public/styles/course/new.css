@@ -1,0 +1,19 @@
+.basic-card {
+    box-sizing: border-box;
+    margin-left: 5%;
+    max-width: 90%;
+    background-color: rgb(211, 218, 248);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.basic-card.new-lesson-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#CourseDescription{
+    width: 100%;
+    margin-top: 10px;
+}

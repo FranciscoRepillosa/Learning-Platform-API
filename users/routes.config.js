@@ -4,6 +4,16 @@ const router = express.Router();
 
 const userController = require("./controllers/user.controller");
 const authController = require("./controllers/auth.controller");
+const render = require('../utils/render')
+const { route } = require("..");
+
+// views
+
+router.get("/login", render('user/login'));
+router.get("/mycourses", authController.protect,userController.renderMyCoursePage);
+router.get('/signup', render('user/signup'))
+
+
 
 router.post("/signup", authController.signup);
 router.post("/login", authController.login);

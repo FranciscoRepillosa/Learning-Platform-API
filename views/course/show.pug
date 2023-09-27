@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/styles/course/show.css")
+        link(rel="stylesheet", href="/styles/home.css")
+
+    body 
+    include ../includes/searchbar.pug
+    -videoUrl= `/media/free/courses/${course._id}/demoVideos/${course.videoIntro}`
+    .videoDescription
+        video#videoPlayer.video-sample(src=videoUrl, controls) 
+        .learn-to-section
+            h1 #{course.name}
+            p #{course.description}
+            button#buy(courseId=course._id)= 'buy'+` ${course.priceInCents/100}$`
+
+    .lessons
+        each lesson in lessons
+            .lesson
+                img.play-btn-off(src="/play-button.svg")
+                p.play-list-text(videoUrl=lesson.videoPath, courseId=lesson.courseId)= lesson.position+" "+lesson.name
+    script(src='/scripts/course/show.js')
+
+    //- <div onClick={(e) => {changeLesson(e)}}  id={lesson.videoPath} className={`${lesson.videoPath} play-list-item`}>
+    //-         <img className="play-btn-off" src="play-button.svg" alt="" />
+    //-         <p className="play-list-text">{`${index} ${lesson.name}`}</p>
+    //-         <img className="play-list-edit" src="lapiz.svg" alt="" />
+    //-         <p hidden>{lesson.videoPath}</p>
+    //-       </div>s
