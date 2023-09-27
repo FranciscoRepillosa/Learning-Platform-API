@@ -12,7 +12,7 @@ const app = require("./index");
 
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/udemy', {
+mongoose.connect('mongodb://127.0.0.1/udemy', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
