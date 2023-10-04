@@ -82,10 +82,7 @@ function submitForm(e) {
     }
     fetch("http://localhost:5000/upload_files", {
         method: 'POST',
-        body: formData,
-        headers: {
-            cote
-        }
+        body: formData
     })
         .then((res) => console.log(res))
         .catch((err) => ("Error occured", err));
