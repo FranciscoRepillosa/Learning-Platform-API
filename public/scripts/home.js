@@ -53,7 +53,7 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
         const courseCardContainer = document.getElementById('courseCardContainer')
         
         let inputValue = e.target.value
-        const res = await (await fetch(`http://localhost:2121/courses?searchInput=${inputValue}`)).json()
+        const res = await (await fetch(`/courses?searchInput=${inputValue}`)).json()
         console.log(res);
 
         if(res.data.courses.length) {
