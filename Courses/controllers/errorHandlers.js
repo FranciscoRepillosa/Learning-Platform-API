@@ -68,5 +68,5 @@ module.exports = (err, req, res, next) => {
       }
         sendErrorProd(err, res)
     }
-    console.log('now what bitch');
+    console.log('now what bitch', process.env.Node_ENV === "production", process.env.Node_ENV);
 }
