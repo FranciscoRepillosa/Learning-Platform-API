@@ -48,12 +48,10 @@ module.exports = (err, req, res, next) => {
 
     console.log(process.env.NODE_ENV, 'from error');
 
-    if (process.env.Node_ENV === "development") {
-      console.log('the fuck yo');
+    if (process.env.NODE_ENV === "development") {
       console.log(req.originalUrl);
       sendErrorDev(err, res)
-    } else if (process.env.Node_ENV === "production") {
-                                         console.log('the error bish from error handler: ',err);
+    } else if (process.env.NODE_ENV === "production") {
 
       //    CHANGE THIS TO SWICHT STATEMENT
 
@@ -68,5 +66,4 @@ module.exports = (err, req, res, next) => {
       }
         sendErrorProd(err, res)
     }
-    console.log('now what bitch', process.env.Node_ENV === "production", process.env.Node_ENV);
 }
