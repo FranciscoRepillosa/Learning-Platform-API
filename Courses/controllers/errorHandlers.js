@@ -22,6 +22,7 @@ const sendErrorDev = (err , res) => {
 }
 
 const sendErrorProd = (err , res) => {
+  console.log('from send errorProd');
   if(err.isOperational){
     res.status(err.statusCode).json({
       status: err.status,
@@ -51,7 +52,7 @@ module.exports = (err, req, res, next) => {
       console.log(req.originalUrl);
       sendErrorDev(err, res)
     } else if (process.env.Node_ENV === "production") {
-      
+                                         console.log('the error bish from error handler: ',err);
 
       //    CHANGE THIS TO SWICHT STATEMENT
 
