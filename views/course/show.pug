@@ -12,7 +12,7 @@ html(lang="en")
     include ../includes/searchbar.pug
     -videoUrl= `/media/free/courses/${course._id}/demoVideos/${course.videoIntro}`
     .videoDescription
-        video#videoPlayer.video-sample(src=videoUrl, controls) 
+        video#videoPlayer.video-sample(src=videoUrl, controls, playsinline) 
         .learn-to-section
             h1 #{course.name}
             p #{course.description}
