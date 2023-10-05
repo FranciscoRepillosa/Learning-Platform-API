@@ -6,6 +6,8 @@ const vidPath = "C:\Users\computador\Desktop\proyects\cloned-learning-platfrom-a
 exports.getMedia = catchAsync( async (req, res) => {
 
     const file = `./MediaStorage/${req.params.mediaSource}/${req.params.mediaType}/${req.params.mediaId}`;
+
+    console.log('file mf: ',file);
   
     const getVideoData = new Promise(function (resolve, reject) {
   
