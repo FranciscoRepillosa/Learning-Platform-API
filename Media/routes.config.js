@@ -4,8 +4,8 @@ const authController = require("../users/controllers/auth.controller");
 const mediaController = require("../Media/controllers/media.controller");
 
 router.get("/:mediaSource/:mediaSourceId/:mediaType/:mediaId",
-                                                // authController.protect,
-                                                // authController.restricTo(['User','instructor']),
+                                                authController.protect,
+                                                authController.restricTo(['User','instructor']),
                                                 mediaController.getMedia);
 
 
