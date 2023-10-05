@@ -26,7 +26,7 @@ let changeLesson = (e) => {
         videoPlayer.src = url
 
     } else {
-        videoPlayer.src= `http://localhost:2121/media/courses/${courseId}/videoLessons/${videoUrl}`
+        videoPlayer.src= `/media/courses/${courseId}/videoLessons/${videoUrl}`
     }
 
 
