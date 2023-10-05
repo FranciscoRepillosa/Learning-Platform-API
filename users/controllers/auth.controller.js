@@ -78,7 +78,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
 
-try {    console.log('token  ', req.session);
+    console.log('token  in protect ', req.session);
 
     let token = req.session.user;
 //    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -104,9 +104,6 @@ try {    console.log('token  ', req.session);
 
    req.user = CurrentUser;
    next();
-} catch (e) {
-    res.send('nice try ', e)
-}
 });
 
 
