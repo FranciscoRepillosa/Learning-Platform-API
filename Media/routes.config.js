@@ -9,8 +9,8 @@ router.get("/:mediaSource/:mediaSourceId/:mediaType/:mediaId",
                                                 mediaController.getMedia);
 
 
-// router.get("/free/:mediaSource/:mediaSourceId/:mediaType/:mediaId",
-//                                                 mediaController.getMedia);
+router.get("/free/:mediaSource/:mediaSourceId/:mediaType/:mediaId",
+                                                mediaController.getMedia);
 
 router.get("/userimage", authController.protect,
                          mediaController.getUserImage);
