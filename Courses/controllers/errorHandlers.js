@@ -45,7 +45,7 @@ module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || "error";
 
-    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV, 'from error');
 
     if (process.env.Node_ENV === "development") {
       console.log(req.originalUrl);
