@@ -68,4 +68,5 @@ module.exports = (err, req, res, next) => {
       }
         sendErrorProd(err, res)
     }
+    console.log('now what bitch');
 }
