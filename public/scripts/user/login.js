@@ -16,5 +16,18 @@ document.getElementById("submit").addEventListener('click', async (e) => {
         body: JSON.stringify(data)
     })
 
-    console.log(res);
+    console.log(res.status);
+
+    if  (res.status === 201) {
+        console.log(localStorage.getItem("wannaGoTo"));
+        document.location = localStorage.getItem("wannaGoTo") ? localStorage.getItem("wannaGoTo") : '/'
+        
+    }
+
+    else{
+        alertify
+            .alert('Authentication error:', 'wrong credentials, your suss 🧐', function(){
+                alertify.warning("i'm watching u");
+            });
+    }
 })

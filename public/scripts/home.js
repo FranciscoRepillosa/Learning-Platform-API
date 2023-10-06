@@ -1,6 +1,4 @@
 
-
-
 const createCourseCard = (course ) => {
 
     const courseCard = document.createElement('div')
@@ -46,6 +44,14 @@ let addCourseElements = (courses, courseCardContainer) => {
     });
 } 
 
+let displayLatestCourses = async () => {
+
+    const res = await (await fetch(`/courses?latest="true"&limit=10`)).json()
+    console.log(res);
+
+    addCourseElements(res.data.courses, courseCardContainer)
+} 
+
 document.getElementById('searchBox').addEventListener('keyup', async (e) => {
 
     if(e.keyCode === 12+1) {
@@ -60,6 +66,8 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
 
             if(courseCardContainer.childNodes.length) {removeChilds(courseCardContainer)}
 
+            document.getElementById('HeaderTitle').textContent = 'Search Results'
+
             addCourseElements(res.data.courses, courseCardContainer)
 
         }
@@ -70,3 +78,5 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
 
       
 })
+
+displayLatestCourses()

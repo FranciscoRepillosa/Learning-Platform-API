@@ -43,3 +43,56 @@ document.getElementById('buy').addEventListener('click', (e) => {
 
     window.location = `/checkout/${courseId}`
 })
+
+// document.getElementById('videoPlayer').addEventListener('error', async (e) => {
+//     console.log(e);
+
+//     if (event.target.error.code === 4) {
+//         const videoUrl = videoElement.src;
+//         try {
+//           const response = await fetch(videoUrl, { method: 'HEAD'});
+//           console.log(response);
+//           if (response.status === 401 || response.status === 403) {
+//             console.log('Authentication error:', response.status);
+//             // Perform actions to handle the authentication error
+//           }
+//         } catch (error) {
+//           console.error('Error catching HTTP response:', error);
+//         }
+//       }
+      
+// }, true);
+
+ async function failed(e) {
+   // video playback failed - show a message saying why
+   console.log(e.target.error);
+
+    //const videoUrl = videoElement.src;
+    try {
+      const response = await fetch(e.target.src, { method: 'HEAD'});
+      console.log(response);
+      if (response.status === 401) {
+        alertify
+            .alert('Authentication error:', 'you must login to access all your courses 🔑', function(){
+                alertify.message('OK');
+                localStorage.setItem("wannaGoTo", document.location);
+                document.location = '/user/login'
+            });
+
+       // console.log('Authentication error:', response.status);
+        // Perform actions to handle the authentication error
+      }
+
+      else if (response.status === 403) {
+        alertify
+            .alert('Authentication error:', 'you must buy the course to waatch all the lessons 🫰', function(){
+                alertify.message('OK');
+
+            });
+       // console.log('Authentication error:', response.status);
+        // Perform actions to handle the authentication error
+      }
+    } catch (error) {
+      console.error('Error catching HTTP response:', error);
+    }
+ }

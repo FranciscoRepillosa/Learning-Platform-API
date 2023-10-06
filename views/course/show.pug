@@ -7,12 +7,23 @@ html(lang="en")
         title Document
         link(rel="stylesheet", href="/styles/course/show.css")
         link(rel="stylesheet", href="/styles/home.css")
+        // JavaScript
+        script(src='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js')
+        // CSS
+        link(rel='stylesheet' href='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css')
+        // Default theme
+        link(rel='stylesheet' href='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css')
+        // Semantic UI theme
+        link(rel='stylesheet' href='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css')
+        // Bootstrap theme
+        link(rel='stylesheet' href='//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css')
+
 
     body 
     include ../includes/searchbar.pug
     -videoUrl= `/media/free/courses/${course._id}/demoVideos/${course.videoIntro}`
     .videoDescription
-        video#videoPlayer.video-sample(src=videoUrl, controls, , autoPlay, muted) 
+        video#videoPlayer.video-sample(src=videoUrl, controls, , autoPlay, muted,  onerror='failed(event)') 
         .learn-to-section
             h1 #{course.name}
             p #{course.description}

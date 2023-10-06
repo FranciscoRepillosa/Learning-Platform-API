@@ -20,6 +20,10 @@
     margin-top: 30px;
 }
 
+#HeaderTitle {
+    text-align: center;
+}
+
 .course-card {
     position: relative;
     max-height: 90px;

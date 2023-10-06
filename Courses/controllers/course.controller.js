@@ -27,8 +27,10 @@ exports.renderCourse = catchAsync(async (req, res) => {
 
 exports.getAllCourses = catchAsync(async (req, res) => {
   const queryObj = {...req.query};
-  const excludeFields = ["page", "sort", "limit", "fields"];
+  const excludeFields = ["page", "sort", "limit", "fields", "latest"];
   excludeFields.forEach(field => delete queryObj[field]);
+
+
   
   let queryStr = JSON.stringify(queryObj);
   queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, macth => `$${macth}`);
@@ -48,8 +50,10 @@ exports.getAllCourses = catchAsync(async (req, res) => {
     }
   })
 }
- 
-  const query = Course.find(queryObj);
+
+  let limit = req.query.limit ? Number(req.query.limit) : {}
+
+  const query = Course.find(queryObj).sort(req.query.latest ? { _id: -1 } : {}).limit(limit);
 
   const courses = await query;
 
