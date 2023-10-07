@@ -25,7 +25,7 @@ head
         input#pass(type='password' placeholder='Password' autocomplete='new-password')
       a.link(href='#') Forgot Your Password?
     .action
-      button Register
+      button( onClick="(function(){document.location = `/user/signup`})();return false;") Register
       button#submit Sign in
 // partial
 script(src='/scripts/user/login.js')

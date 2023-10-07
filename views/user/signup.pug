@@ -9,7 +9,7 @@ html(lang="en")
     body
     .login-form
         form
-            h1 Login
+            h1 Register
             .content
                 .input-field
                     input#name(type='text' placeholder='name' autocomplete='nope')
@@ -21,6 +21,6 @@ html(lang="en")
                     input#confirmPassword(type='password' placeholder='confirmPassword' autocomplete='new-password')
                 a.link(href='#') Forgot Your Password?
             .action
-                button Login
+                button( onClick="(function(){document.location = `/user/login`})();return false;") Login
                 button#submit Sign Up
     script(src='/scripts/user/signup.js')

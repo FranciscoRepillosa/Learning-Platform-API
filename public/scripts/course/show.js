@@ -85,7 +85,7 @@ document.getElementById('buy').addEventListener('click', (e) => {
 
       else if (response.status === 403) {
         alertify
-            .alert('Authentication error:', 'you must buy the course to waatch all the lessons 🫰', function(){
+            .alert('Authentication error:', 'you must buy the course to watch all the lessons 💰', function(){
                 alertify.message('OK');
 
             });
