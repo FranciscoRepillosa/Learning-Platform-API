@@ -13,9 +13,7 @@ const courseId = document.getElementById('payment-form').getAttribute("courseId"
 initialize();
 checkStatus();
 
-document
-  .querySelector("#payment-form")
-  .addEventListener("submit", handleSubmit);
+document.getElementById('submit').addEventListener('click' , handleSubmit);
 
 // Fetches a payment intent and captures the client secret
 async function initialize() {
@@ -57,7 +55,16 @@ async function handleSubmit(e) {
     },
   })
 
-  if(res.paymentIntent.status === "succeeded") {
+  if (res.error){
+    setLoading(false);
+
+    alertify
+      .alert('Purchase error', `${res.error.message}`, function(){
+        alertify.message('try again');
+      });
+  }
+
+  else if(res.paymentIntent.status === "succeeded") {
 
     try {
       const courseAccess = fetch("/user/giveCourseAccess", {
@@ -95,7 +102,6 @@ async function handleSubmit(e) {
 
 
   }
-
 
 }
 
