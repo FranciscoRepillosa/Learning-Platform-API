@@ -10,7 +10,7 @@ document.getElementById("submit").addEventListener('click', async (e) => {
         password,
         confirmPassword
     };
-    const res = await fetch('/user/signup', {
+    let res = await fetch('/user/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,4 +19,17 @@ document.getElementById("submit").addEventListener('click', async (e) => {
     })
 
     console.log(res);
+
+    if  (res.status === 201) {
+        document.location = localStorage.getItem("wannaGoTo") ? localStorage.getItem("wannaGoTo") : '/'
+        
+    }
+
+    else{
+        res = await res.json()
+        alertify
+            .alert('Signup Error', `${res.message}`, function(){
+                alertify.warning("try again");
+            });
+    }
 })

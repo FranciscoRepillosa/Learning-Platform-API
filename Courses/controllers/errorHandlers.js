@@ -7,12 +7,28 @@ const handleObjectIdError = err => {
 
 const handleJWTError = () => new AppError('invalid token please log in again!', 401);
 const handleJWTExpiresError = ()  => new AppError("Your token has expires, please log in again", 401); 
+const handleMongoError = (error) => {
 
+  // duplicate unique key
+  if(error.code === 11000) {
+
+    let message="There is already a user with this with the same";
+
+    for (const key in error.keyPattern) {
+      message+= ` ${key},`
+    }
+
+    return new AppError(message, 400);
+  }
+
+  else{
+    return new AppError(error.errmsg, 400);
+  }
+
+}
 
 
 const sendErrorDev = (err , res) => {
-  console.log('enter sendErrorDev');
-  console.log('here comes the shit',err);
   return res.status(err.statusCode).json({
     status: err.status,
     error: err,
@@ -22,7 +38,6 @@ const sendErrorDev = (err , res) => {
 }
 
 const sendErrorProd = (err , res) => {
-  console.log('from send errorProd');
   if(err.isOperational){
     res.status(err.statusCode).json({
       status: err.status,
@@ -63,6 +78,10 @@ module.exports = (err, req, res, next) => {
        }
       if(err.name === "TokenExpiredError") {
         err = handleJWTExpiresError()
+      }
+
+      if(err.name === 'MongoError') {
+        err = handleMongoError(err)
       }
         sendErrorProd(err, res)
     }
