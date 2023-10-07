@@ -87,7 +87,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     if (!token) {
 
-        if(req.headers.accept === 'application/json'){
+        if(req.headers.accept === 'application/json' || req.method == "HEAD"){
             return next( new AppError('You are not logged in! Please log in to get access.', 401 ))
         }
 
