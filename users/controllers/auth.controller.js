@@ -84,6 +84,18 @@ exports.protect = catchAsync(async (req, res, next) => {
 //    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
 //         token = req.headers.authorization.split(' ')[1];
 //    }     
+
+    if (!token) {
+
+        if(req.headers.accept === 'application/json'){
+            return next( new AppError('You are not logged in! Please log in to get access.', 401 ))
+        }
+
+        else {
+            return res.redirect("/user/login")
+        }
+    }
+
    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
    console.log("userId :",decoded.id);
@@ -93,7 +105,12 @@ exports.protect = catchAsync(async (req, res, next) => {
    console.log('CurrentUser ',CurrentUser);
 
    if(!CurrentUser) {
-       return next(new AppError('The user belonging to this token does no longer exist', 401 ))
+        if(req.headers.accept === 'application/json'){
+       //return next(new AppError('The user belonging to this token does no longer exist', 401 ))
+        }
+        else {
+            return res.redirect("/user/login")
+        }
    }
    
    if(CurrentUser.changePasswordAfter(decoded.iat)) {

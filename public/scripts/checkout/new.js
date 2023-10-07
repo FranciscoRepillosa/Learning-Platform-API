@@ -58,35 +58,39 @@ async function handleSubmit(e) {
   })
 
   if(res.paymentIntent.status === "succeeded") {
-    alert('all good mf')
-    setLoading(false);
+
+    try {
+      const courseAccess = fetch("/user/giveCourseAccess", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          courseId: courseId
+        })
+      })
+      
+      const saleRecord = fetch(`/sales/${courseId}`, {
+        method: 'POST'
+      })
+
+      setLoading(false);
+
+      alertify
+        .alert('Purchase complete', 'Now you watch the full course ', function(){
+            document.location = `/courses/${courseId}/show`
+        });
+      
+
+    } catch (error) {
+      alertify
+        .alert('Error Adding the course to your list', 'Contact costumer support', function(){
+            document.location = `/courses/${courseId}/show`
+        });
+    }
 
     // give course accces
-    fetch("/user/giveCourseAccess", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        courseId: courseId
-      })
-    })
-      .then(response => {
-        // Handle the response
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-        // Handle the error
-      });
-    
-    fetch(`/sales/${courseId}`, {
-      method: 'POST'
-    }).then(res => {
-      console.log(res);
-    }).catch(e => {
-      console.log(e);
-    })
+
 
 
 
