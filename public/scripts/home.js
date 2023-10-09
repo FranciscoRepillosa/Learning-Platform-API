@@ -69,7 +69,7 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
             document.getElementById('bodyBgImg').style.overflow = "auto"
             document.getElementById('bodyBgImg').style.backgroundImage = "none"
             document.getElementById('top-nav-container').classList.remove("home");
-
+            document.getElementById('searchBox').style.padding = "1%"
 
             document.getElementById('HeaderTitle').textContent = 'Search Results'
 
