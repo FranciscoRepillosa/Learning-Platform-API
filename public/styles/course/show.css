@@ -101,3 +101,34 @@
     transition: background 0.2s ease,color 0.2s ease,box-shadow 0.2s ease;
     margin-top: 10px;
 }
+
+@media only screen and (max-width: 920px) {
+    .videoDescription {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .videoDescription video {
+        width: 100%;
+    }
+
+    .learn-to-section {
+        width: 100%;
+    }
+
+  }
+
+@media only screen and (max-width: 600px) {
+    .videoDescription {
+        width: 80%;
+        margin-left: 10%;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .lessons {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+  }

@@ -105,3 +105,13 @@
   .login-form .action button:nth-child(2):hover {
     background: #3c4d6d;
   }
+
+
+  
+@media only screen and (max-width: 900px) {
+  .login-form {
+    width: 80%;
+    margin-top: 100px;
+  }
+
+}
