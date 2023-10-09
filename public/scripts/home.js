@@ -66,6 +66,9 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
 
             if(courseCardContainer.childNodes.length) {removeChilds(courseCardContainer)}
 
+            document.getElementsByTagName('body')[0].style.overflow = "auto"
+            document.getElementsByTagName('body')[0].style.backgroundImage = "none"
+
             document.getElementById('HeaderTitle').textContent = 'Search Results'
 
             addCourseElements(res.data.courses, courseCardContainer)
@@ -79,4 +82,4 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
       
 })
 
-displayLatestCourses()
+//displayLatestCourses()

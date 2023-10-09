@@ -11,10 +11,12 @@ html(lang="en")
 
     h1(style="text-align:center;")= "My courses"
 
+    p= courses.length
+
     #courseCardContainer
         each course in courses
-            a(href=`../courses/${course.courseId}/show`) 
                 .course-card
-                    h2.course-card-title= course.name
+                    a.course-card-title(href=`../courses/${course.courseId}/show`)= course.role
+                    a(href=`/lesson/${course.courseId}/show`) Edit
 
-    script(src='/scripts/home.js')
+    //- script(src='/scripts/home.js')

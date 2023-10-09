@@ -44,24 +44,27 @@ document.getElementById('buy').addEventListener('click', (e) => {
     window.location = `/checkout/${courseId}`
 })
 
-// document.getElementById('videoPlayer').addEventListener('error', async (e) => {
-//     console.log(e);
+let checkCourseOwnerShip = async () => {
 
-//     if (event.target.error.code === 4) {
-//         const videoUrl = videoElement.src;
-//         try {
-//           const response = await fetch(videoUrl, { method: 'HEAD'});
-//           console.log(response);
-//           if (response.status === 401 || response.status === 403) {
-//             console.log('Authentication error:', response.status);
-//             // Perform actions to handle the authentication error
-//           }
-//         } catch (error) {
-//           console.error('Error catching HTTP response:', error);
-//         }
-//       }
-      
-// }, true);
+  let buttomElementLink = document.getElementById("buyButtomContainer")
+  let buyButtom = document.getElementById("buy")
+
+  const courseId = buttomElementLink.getAttribute("courseId")
+
+  const response = await (await fetch(`/courses/${courseId}/checkOwnerShip`)).json();
+
+  if(response.userCourseStatus === 'instructor') {
+    buyButtom.textContent = "Edit"
+    buttomElementLink.setAttribute("href",`/lesson/${courseId}/show`)
+    //buttomElementLink.display = "block"
+
+  }
+
+  else if(response.userCourseStatus === "user") {
+    buttomElementLink.display = "none"
+  }
+
+}
 
  async function failed(e) {
    // video playback failed - show a message saying why
@@ -96,3 +99,5 @@ document.getElementById('buy').addEventListener('click', (e) => {
       console.error('Error catching HTTP response:', error);
     }
  }
+
+ checkCourseOwnerShip()

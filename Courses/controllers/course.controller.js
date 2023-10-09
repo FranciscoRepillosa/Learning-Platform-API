@@ -122,7 +122,7 @@ exports.CreateCourse = catchAsync(async (req, res, next) => {
 
      const newCourse = await Course.create(courseContent);
 
-     const instructorAccess = { courseId: newCourse._id, role: "instructor" };
+     const instructorAccess = { courseId: newCourse._id, role: "instructor", name: newCourse.name};
         
      const user = await User.findByIdAndUpdate(req.user._id, { $push: { courses: instructorAccess } } );
         
@@ -210,6 +210,19 @@ exports.getImageCover = (req, res) => {
   console.log("imagecover");
   res.sendFile(__dirname + `../../media/courses/coverImages/${req.params.imagePath}`);
 }
+
+exports.checkOwnerShip = catchAsync(async (req, res) => {
+
+  let alreadOwnTheCourse = req.user.courses.find((course) => {
+   return course.courseId === req.params.courseId
+  })
+
+  res.status(200).json({
+    status: "success",
+    userCourseStatus: alreadOwnTheCourse.role ? alreadOwnTheCourse.role : false
+  })
+
+})  
 
 //Person.update({'items.id': 2}, {'$set': {
  //   'items.$.name': 'updated item2',

@@ -14,7 +14,6 @@ router.get("/mycourses", authController.protect,userController.renderMyCoursePag
 router.get('/signup', render('user/signup'))
 
 
-
 router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 

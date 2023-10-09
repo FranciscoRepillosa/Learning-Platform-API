@@ -27,7 +27,9 @@ html(lang="en")
         .learn-to-section
             h1 #{course.name}
             p #{course.description}
-            button#buy(courseId=course._id)= 'buy'+` ${course.priceInCents/100}$`
+            a#buyButtomContainer(href=`/checkout/${course._id}`, courseId=course._id)
+                button#buy Buy       
+                //- button#buy(courseId=course._id)= 'buy'+` ${course.priceInCents/100}$`
 
     .lessons
         each lesson in lessons

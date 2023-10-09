@@ -15,7 +15,8 @@ exports.routesConfig = function (app) {
 
     app.post("/courses", authController.protect, courseController.uploadIntroFiles, courseController.CreateCourse);
 
-     
+    app.get("/courses/:courseId/checkOwnerShip", authController.protect, courseController.checkOwnerShip);
+
     
     app.get("/courses/:courseId", courseController.getById);
 
