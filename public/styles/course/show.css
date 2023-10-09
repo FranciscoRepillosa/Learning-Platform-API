@@ -22,6 +22,22 @@
     background-color: rgb(211 218 248 / 13%);
     width: 50%;
     align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.learn-to-section h3 {
+    height: 33%;
+    /* margin: 0; */
+    font-size: 1.5rem;
+    /* padding: 5px; */
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#buyButtomContainer  {
+    height: 35px;
+    margin-bottom: 5%;
 }
 
 .lessons {
