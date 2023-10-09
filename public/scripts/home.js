@@ -68,6 +68,8 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
 
             document.getElementById('bodyBgImg').style.overflow = "auto"
             document.getElementById('bodyBgImg').style.backgroundImage = "none"
+            document.getElementById('bodyBgImg').classList.remove("home");
+
 
             document.getElementById('HeaderTitle').textContent = 'Search Results'
 
