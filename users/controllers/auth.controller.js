@@ -28,10 +28,7 @@ exports.signup = catchAsync( async (req, res, next) => {
 
     res.cookie("jwt", token, cookieOptions);
 
-    req.session.user = {
-        username: newUser._id,
-        // Add any other relevant user data you want to store in the session
-    };
+    req.session.user = token
     
     res.status(201).json({
         status: "success",
