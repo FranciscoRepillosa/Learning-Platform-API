@@ -60,7 +60,7 @@ let checkCourseOwnerShip = async () => {
 
   }
 
-  else if(response.userCourseStatus === "user") {
+  else if(response.userCourseStatus === "User") {
     buttomElementLink.display = "none"
   }
 
