@@ -84,4 +84,5 @@ document.getElementById('searchBox').addEventListener('keyup', async (e) => {
       
 })
 
+
 //displayLatestCourses()

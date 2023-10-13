@@ -37,6 +37,8 @@ html(lang="en")
                 img.play-btn-off(src="/play-button.svg")
                 p.play-list-text(videoUrl=lesson.videoPath, courseId=lesson.courseId)= lesson.position+" "+lesson.name
     script(src='/scripts/course/show.js')
+    script(src='/scripts/utils/dropdown.js')
+
 
     //- <div onClick={(e) => {changeLesson(e)}}  id={lesson.videoPath} className={`${lesson.videoPath} play-list-item`}>
     //-         <img className="play-btn-off" src="play-button.svg" alt="" />

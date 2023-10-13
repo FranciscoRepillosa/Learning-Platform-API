@@ -9,6 +9,19 @@ html(lang="en")
     body#bodyBgImg
     //- .BackImgContainer
     //- img(src="/img/4339.jpg", alt="", srcset="")
+
+    .header
+        .dropdown(data-dropdown='')
+            button.link(data-dropdown-button='') 🤓
+            .dropdown-menu.information-grid
+                div
+                    .dropdown-heading Actions
+                    .dropdown-links
+                        a.link(href='/user/login') Login
+                        a.link(href='/courses/new') Create Course
+                        a.link(href='/user/mycourses') MyCourses
+
+
     #top-nav-container.top-nav-container.home
         input#searchBox.home(className="search-box" type="text" placeholder="search courses and hit enter")
     h3#HeaderTitle
@@ -17,3 +30,4 @@ html(lang="en")
     #courseCardContainer
 
     script(src='/scripts/home.js')
+    script(src='/scripts/utils/dropdown.js')
