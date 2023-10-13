@@ -160,3 +160,7 @@ function setLoading(isLoading) {
     document.querySelector("#button-text").classList.remove("hidden");
   }
 }
+
+alertify
+  .alert('Notice', "This project is currently in demonstration mode, as such, the payment functionality is only available for testing purposes. To proceed with a transaction, please use the following card information: Card Number: 4242 4242 4242 4242, Expiration Date: 04/24, CVC: 242, ZIP: 42424. ", function(){
+  });
