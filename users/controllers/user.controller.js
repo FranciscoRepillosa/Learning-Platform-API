@@ -115,6 +115,6 @@ exports.giveCourseAccess = async (req, res) => {
 exports.renderMyCoursePage = async (req, res) => {
     const {courses} = await User.findById(req.user._id)
 
-    res.render("user/myCourses", {courses})
+    res.render("user/mycourses", {courses})
   
 }
