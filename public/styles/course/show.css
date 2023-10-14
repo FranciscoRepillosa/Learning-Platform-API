@@ -155,3 +155,11 @@
     }
 
   }
+
+  
+  @media only screen and (max-width: 400px) {
+    .play-list-text {
+        font-size: 0.6rem;
+    }
+  
+  }
