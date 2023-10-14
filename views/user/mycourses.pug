@@ -16,7 +16,6 @@ html(lang="en")
     #courseCardContainer
         each course in courses
                 .course-card
-                    a.course-card-title(href=`../courses/${course.courseId}/show`)= course.role
-                    a(href=`/lesson/${course.courseId}/show`) Edit
+                    a.course-card-title(href=`../courses/${course.courseId}/show`)= course.name
 
     //- script(src='/scripts/home.js')
